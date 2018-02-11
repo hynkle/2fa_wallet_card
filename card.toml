@@ -1,10 +1,10 @@
 [profiles]
   
   [profiles.personal]
-  image = "hynkle.png"
+  image = "hynkle.svg"
 
   [profiles.taxjar]
-  image = "taxjar.png"
+  image = "taxjar.svg"
 
 [services]
 
@@ -15,17 +15,17 @@
 
   [services.google_taxjar]
   profile = "taxjar"
-  image = "google.eps"
+  image = "google.svg"
   codes = ["1234 5678", "1415 9265", "1123 5813"]
 
   [services.google_hynkle]
   profile = "personal"
-  image = "google.eps"
+  image = "google.svg"
   codes = ["3589 7932", "3846 2643", "3278 9394"]
 
   [services.github]
   profile = "personal"
-  image = "github.eps"
+  image = "github.svg"
   codes = ["deadb eefgh", "3494e ebaf3", "8bbc 3412"]
 
   [services.bitbucket_taxjar]
@@ -35,12 +35,12 @@
 
   [services.dropbox_hynkle]
   profile = "personal"
-  image = "dropbox.eps"
+  image = "dropbox.svg"
   codes = ["bun3 39xb", "39bn nedt", "n3bu 8et3"]
 
   [services.dropbox_taxjar]
   profile = "taxjar"
-  image = "dropbox.eps"
+  image = "dropbox.svg"
   codes = ["93bu ntei", "os3t xb2h", "9boi i2nu"]
 
   [services.heroku_taxjar]
