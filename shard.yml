@@ -1,16 +1,16 @@
 name: 2fa_card
 version: 0.1.0
 
-# authors:
-#   - name <email@example.com>
+authors:
+  - Jonathan Hinkle <hello@hynkle.com>
 
-# description: |
-#   Short description of 2fa_card
+description: |
+  Helps generate a wallet card with backup codes for services where you've enable two-factor authentaction (2FA)
 
-# dependencies:
-#   pg:
-#     github: will/crystal-pg
-#     version: "~> 0.5"
+dependencies:
+  toml:
+    github: manastech/crystal-toml
+    branch: master
 
 # development_dependencies:
 #   webmock:
