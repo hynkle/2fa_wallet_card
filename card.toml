@@ -15,35 +15,35 @@
 
   [services.google_taxjar]
   profile = "taxjar"
-  image = "google.png"
+  image = "google.eps"
   codes = ["1234 5678", "1415 9265", "1123 5813"]
 
   [services.google_hynkle]
   profile = "personal"
-  image = "google.png"
+  image = "google.eps"
   codes = ["3589 7932", "3846 2643", "3278 9394"]
 
   [services.github]
   profile = "personal"
-  image = "github.png"
+  image = "github.eps"
   codes = ["deadb eefgh", "3494e ebaf3", "8bbc 3412"]
 
   [services.bitbucket_taxjar]
   profile = "taxjar"
-  image = "bitbucket.png"
+  image = "bitbucket.svg"
   codes = ["12345678", "99394403", "56473829"]
 
   [services.dropbox_hynkle]
   profile = "personal"
-  image = "dropbox.png"
+  image = "dropbox.eps"
   codes = ["bun3 39xb", "39bn nedt", "n3bu 8et3"]
 
   [services.dropbox_taxjar]
   profile = "taxjar"
-  image = "dropbox.png"
+  image = "dropbox.eps"
   codes = ["93bu ntei", "os3t xb2h", "9boi i2nu"]
 
   [services.heroku_taxjar]
   profile = "taxjar"
-  image = "heroku.png"
+  image = "heroku.svg"
   codes = ["abed386ud392", "bbbbbbbbbbbb"] 
