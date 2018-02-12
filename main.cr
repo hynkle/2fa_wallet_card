@@ -58,7 +58,7 @@ class Image
   end
 end
 
-class Profile
+class Persona
   getter name
   getter image
 
@@ -69,33 +69,33 @@ class Profile
 end
 
 class Service
-  getter profile
+  getter persona
   getter image
   getter codes
 
-  def initialize(profile : Profile, image : Image, codes = [] of String)
-    @profile = profile
+  def initialize(persona : Persona, image : Image, codes = [] of String)
+    @persona = persona
     @image = image
     @codes = codes
   end
 end
 
-config = TOML.parse(File.read("card.toml"))
+config = TOML.parse(File.read("settings.toml"))
 
-profiles = {} of String => Profile
-config["profiles"].as(Hash).each do |(name, attrs)|
+personas = {} of String => Persona
+config["personas"].as(Hash).each do |(name, attrs)|
   attrs = attrs.as(Hash)
   image = Image.new(attrs["image"].as(String))
-  profiles[name] = Profile.new(name, image)
+  personas[name] = Persona.new(name, image)
 end
 
 services = config["services"].as(Hash).map do |(identifier, attrs)|
   attrs = attrs.as(Hash)
   image = Image.new(attrs["image"].as(String))
   codes = attrs["codes"].as(Array).map {|code| code.as(String)}
-  profile_name = attrs["profile"].as(String)
-  profile = profiles.fetch(profile_name)
-  Service.new(profile, image, codes)
+  persona_name = attrs["persona"].as(String)
+  persona = personas.fetch(persona_name)
+  Service.new(persona, image, codes)
 end
 
 card_width, card_height = CARD_SIZE
@@ -123,10 +123,10 @@ svg = XML.build(indent: "  ") do |xml|
         xml.element("g", class: "row") do
           if code_idx == 0
             xml.element("image", x: left_edge, y: v_cursor, width: image_width, height: image_height, "xlink:href": service.image.data_uri)
-            xml.element("image", x: left_edge + image_width * 1.2, y: v_cursor, width: image_width, height: image_height, "xlink:href": service.profile.image.data_uri)
+            xml.element("image", x: left_edge + image_width * 1.2, y: v_cursor, width: image_width, height: image_height, "xlink:href": service.persona.image.data_uri)
           end
 
-          xml.element("text", x: left_edge + (image_width * 1.2 * 2) + image_width * 0.5, y: v_cursor + line_height * 0.5, "font-size": font_size, "font-family": "DejaVu Sans Mono", "alignment-baseline": "middle") do
+          xml.element("text", x: left_edge + (image_width * 1.2 * 2) + image_width * 0.5, y: v_cursor + line_height * 0.5, "font-size": font_size, "font-family": "DejaVu Sans Mono, monospace", "alignment-baseline": "middle") do
             xml.text code
           end
         end

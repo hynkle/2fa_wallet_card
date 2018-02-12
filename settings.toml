@@ -1,0 +1,50 @@
+[personas]
+  
+  [personas.personal]
+  image = "me.svg"
+
+  [personas.work]
+  image = "work.svg"
+
+[services]
+
+  [services.fastmail]
+  persona = "personal"
+  image = "fastmail.png"
+  codes = ["srebeet"]
+
+  [services.google_me]
+  persona = "personal"
+  image = "google.svg"
+  codes = ["fergog", "rneansiatdm", "gengir"]
+
+  [services.google_work]
+  persona = "work"
+  image = "google.svg"
+  codes = ["cptiuaonlysu", "nnpuguel", "nadpsasrieest"]
+
+  [services.github]
+  persona = "personal"
+  image = "github.svg"
+  codes = ["khsiatc", "rsuh", "raoetusrc"]
+
+  [services.bitbucket_work]
+  persona = "work"
+  image = "bitbucket.svg"
+  codes = ["pilhdno", "cevti", "dtesrlomo"]
+
+  [services.dropbox_me]
+  persona = "personal"
+  image = "dropbox.svg"
+  codes = ["iiglldooaec", "acdomt", "uosoeibqus"]
+
+  [services.dropbox_work]
+  persona = "work"
+  image = "dropbox.svg"
+  codes = ["dyaphgoalotin", "poyansr", "yahplure"]
+
+  [services.heroku_work]
+  persona = "work"
+  image = "heroku.svg"
+  codes = ["cecelint", "iwsme", "ilso"]
+
