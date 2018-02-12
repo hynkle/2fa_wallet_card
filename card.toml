@@ -11,12 +11,12 @@
   [services.fastmail]
   profile = "personal"
   image = "fastmail.png"
-  codes = ["abcd efgh ijkl mnop"]
+  codes = ["fastmail 1"]
 
   [services.google_taxjar]
   profile = "taxjar"
   image = "google.svg"
-  codes = ["1234 5678", "1415 9265", "1123 5813"]
+  codes = ["googletj1", "googletj2", "googletj3"]
 
   [services.google_hynkle]
   profile = "personal"
