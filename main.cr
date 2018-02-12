@@ -6,6 +6,7 @@ CARD_SIZE = {2.125, 3.375}
 MARGIN_VERTICAL = 0.25
 MARGIN_HORIZONTAL = 0.25
 SECTION_SEPARATOR_HEIGHT_AS_PROPORTION_OF_LINE_HEIGHT = 1
+FONT_SIZE_AS_PROPORTION_OF_LINE_HEIGHT = 0.8
 
 class Image
   getter source
@@ -88,27 +89,25 @@ config["profiles"].as(Hash).each do |(name, attrs)|
   profiles[name] = Profile.new(name, image)
 end
 
-services = {} of String => Service
-config["services"].as(Hash).each do |(identifier, attrs)|
+services = config["services"].as(Hash).map do |(identifier, attrs)|
   attrs = attrs.as(Hash)
   image = Image.new(attrs["image"].as(String))
   codes = attrs["codes"].as(Array).map {|code| code.as(String)}
   profile_name = attrs["profile"].as(String)
   profile = profiles.fetch(profile_name)
-  services[identifier] = Service.new(profile, image, codes)
+  Service.new(profile, image, codes)
 end
-
-
 
 card_width, card_height = CARD_SIZE
 content_height = card_height - MARGIN_VERTICAL * 2
 
-number_of_codes = services.sum { |(_, service)| service.codes.size }
+number_of_codes = services.sum { |service| service.codes.size }
 number_of_section_separators = services.size - 1
 units_of_vertical_space = number_of_codes + number_of_section_separators * SECTION_SEPARATOR_HEIGHT_AS_PROPORTION_OF_LINE_HEIGHT
 line_height = content_height.fdiv(units_of_vertical_space)
 section_separator_height = line_height * SECTION_SEPARATOR_HEIGHT_AS_PROPORTION_OF_LINE_HEIGHT
 image_height = image_width = line_height
+font_size = line_height * FONT_SIZE_AS_PROPORTION_OF_LINE_HEIGHT
 
 left_edge = MARGIN_HORIZONTAL
 v_cursor = MARGIN_VERTICAL
@@ -117,9 +116,9 @@ svg = XML.build(indent: "  ") do |xml|
   viewbox = [0, 0, card_width, card_height].join(" ")
   xml.dtd("svg", "-//W3C//DTD SVG 1.1//EN", "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd")
   xml.element("svg", xmlns: "http://www.w3.org/2000/svg", "xmlns:xlink": "http://www.w3.org/1999/xlink", viewBox: viewbox) do
-    xml.element("rect", width: "100%", height: "100%", fill: "#EEEEEE")
+    # xml.element("rect", width: "100%", height: "100%", fill: "#EEEEEE") # background
 
-    services.each.with_index do |(_, service), service_idx|
+    services.each.with_index do |service, service_idx|
       service.codes.each_with_index do |code, code_idx|
         xml.element("g", class: "row") do
           if code_idx == 0
@@ -127,7 +126,7 @@ svg = XML.build(indent: "  ") do |xml|
             xml.element("image", x: left_edge + image_width * 1.2, y: v_cursor, width: image_width, height: image_height, "xlink:href": service.profile.image.data_uri)
           end
 
-          xml.element("text", x: left_edge + (image_width * 1.2 * 2), y: v_cursor + (line_height * 0.5), "font-size": line_height * 0.5, "font-family": "DejaVu Sans Mono", "alignment-baseline": "middle") do
+          xml.element("text", x: left_edge + (image_width * 1.2 * 2) + image_width * 0.5, y: v_cursor + line_height * 0.5, "font-size": font_size, "font-family": "DejaVu Sans Mono", "alignment-baseline": "middle") do
             xml.text code
           end
         end
@@ -137,14 +136,5 @@ svg = XML.build(indent: "  ") do |xml|
     end
   end
 end
-
-
-# puts "card_height: #{card_height}"
-# puts "content_height: #{content_height}"
-# puts "number_of_codes: #{number_of_codes}"
-# puts "number_of_section_separators: #{number_of_section_separators}"
-# puts "line_height: #{line_height}"
-# puts "section_separator_height: #{section_separator_height}"
-# puts "v_cursor: #{v_cursor}"
 
 puts svg
